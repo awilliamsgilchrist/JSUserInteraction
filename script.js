@@ -1,12 +1,14 @@
 //Use to update the recursive tree when a button is clicked
-var buttonHandler = function(me) {
-	var parentDiv = me.parentNode;
-	parentDiv.clear();
-	var slider = parentDiv.querySelector(".range-slider");
-	if(parentDiv === document.form.querySelector(".fib")) {
+var buttonHandler = function(parentNode) {
+	var slider = parentNode.childNodes[0];
+	if(parentNode.childNodes.length === 3){
+		parentNode.removeChild(parentNode.childNodes[2]);
+	}
+	
+	if(parentNode === document.querySelector("form").querySelector(".fib")) {
 		display(slider.value, fib, parentDiv);
 	}
-	else if(parentDiv === document.form.querySelector(".pell")) {
+	else if(parentNode === document.querySelector("form").querySelector(".pell")) {
 		display(slider.value, pell, parentDiv);
 	}
 	else{
@@ -15,18 +17,26 @@ var buttonHandler = function(me) {
 }
 
 //Used to update the button readout when slider changes
-var sliderHandler = function(me) {
-	var parentDiv = this.parentNode;
-	var childButton = parentDiv.querySelector("button");
-	if(parentDiv.getAttribute("class") === "fib"){
-		childButton.textContent = "Fib(" + me.value + ")";
+var sliderHandler = function(parentNode) {
+	var childButton = parentNode.childNodes[1];
+	if(parentNode === document.querySelector("form").querySelector(".fib")){
+		childButton.textContent = "Fib(" + parentNode.childNodes[0].value + ")";
 	}
-	else if(parentDiv.getAttribute("class") === "pell"){
-		childButton.textContent = "Pell(" + me.value + ")";
+	else if(parentNode === document.querySelector("form").querySelector(".pell")){
+		childButton.textContent = "Pell(" + parentNode.childNodes[0].value + ")";
 	}
 	else {
-		childButton.textContent = "Trib(" + me.value + ")";
+		childButton.textContent = "Trib(" + parentNode.childNodes[0].value + ")";
 	}
+}
+
+var setHandlers = function(id) {
+	var masterNode = document.querySelector("form").querySelector("." + id);
+	var childButton = masterNode.childNodes[1];
+	var childInput = masterNode.childNodes[0];
+	
+	childButton.addEventListener("onclick", buttonHandler(masterNode));
+	childInput.addEventListener("onchange", sliderHandler(masterNode));
 }
 
 //A simple function to create text content for a node
@@ -158,5 +168,6 @@ display(1, fib, fibDiv);
 display(1, pell, pellDiv);
 display(1, trib, tribDiv);
 
-fibDiv.querySelector("button").addEventListener("onclick", buttonHandler(fibDiv.querySelector("button")));
-fibDiv.querySelector(".range-slider").addEventListener("onchange", sliderHandler(fibDiv.querySelector(".range-slider")));
+setHandlers("fib");
+setHandlers("pell");
+setHandlers("trib");
