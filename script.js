@@ -150,13 +150,13 @@ var trib = function tribonacci(n) {
 	return{"value" : value, "div" : div};
 }
 
-var fibDiv = document.form.querySelector(".fib");
-var pellDiv = document.form.querySelector(".pell");
-var tribDiv = document.form.QuerySelector(".trib");
+var fibDiv = document.querySelector("form").querySelector(".fib");
+var pellDiv = document.querySelector("form").querySelector(".pell");
+var tribDiv = document.querySelector("form").querySelector(".trib");
 
-display(1, fib, document.form.querySelector(".fib"));
-display(1, pell, document.form.querySelector(".pell"));
-display(1, trib, document.form.querySelector(".trib"));
+display(1, fib, fibDiv);
+display(1, pell, pellDiv);
+display(1, trib, tribDiv);
 
 fibDiv.querySelector("button").addEventListener("onclick", buttonHandler(fibDiv.querySelector("button")));
 fibDiv.querySelector(".range-slider").addEventListener("onchange", sliderHandler(fibDiv.querySelector(".range-slider")));
