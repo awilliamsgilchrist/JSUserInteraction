@@ -1,33 +1,41 @@
 //Use to update the recursive tree when a button is clicked
 var buttonHandler = function(parentNode) {
-	var slider = parentNode.childNodes[0];
-	if(parentNode.childNodes.length === 3){
-		parentNode.removeChild(parentNode.childNodes[2]);
+	var inFunct = function(){
+		var slider = parentNode.childNodes[0];
+		if(parentNode.childNodes.length === 3){
+			parentNode.removeChild(parentNode.childNodes[2]);
+		}
+	
+		if(parentNode === document.querySelector("form").querySelector(".fib")) {
+			display(slider.value, fib, parentNode);
+		}
+		else if(parentNode === document.querySelector("form").querySelector(".pell")) {
+			display(slider.value, pell, parentNode);
+		}
+		else{
+			display(slider.value, trib, parentNode);
+		}
 	}
 	
-	if(parentNode === document.querySelector("form").querySelector(".fib")) {
-		display(slider.value, fib, parentDiv);
-	}
-	else if(parentNode === document.querySelector("form").querySelector(".pell")) {
-		display(slider.value, pell, parentDiv);
-	}
-	else{
-		display(slider.value, trib, parentDiv);
-	}
+	return inFunct;
 }
 
 //Used to update the button readout when slider changes
 var sliderHandler = function(parentNode) {
-	var childButton = parentNode.childNodes[1];
-	if(parentNode === document.querySelector("form").querySelector(".fib")){
-		childButton.textContent = "Fib(" + parentNode.childNodes[0].value + ")";
+	var inFunct = function() {
+		var childButton = parentNode.childNodes[1];
+		if(parentNode === document.querySelector("form").querySelector(".fib")){
+			childButton.textContent = "Fib(" + parentNode.childNodes[0].value + ")";
+		}
+		else if(parentNode === document.querySelector("form").querySelector(".pell")){
+			childButton.textContent = "Pell(" + parentNode.childNodes[0].value + ")";
+		}
+		else {
+			childButton.textContent = "Trib(" + parentNode.childNodes[0].value + ")";
+		}
 	}
-	else if(parentNode === document.querySelector("form").querySelector(".pell")){
-		childButton.textContent = "Pell(" + parentNode.childNodes[0].value + ")";
-	}
-	else {
-		childButton.textContent = "Trib(" + parentNode.childNodes[0].value + ")";
-	}
+	
+	return inFunct;
 }
 
 var setHandlers = function(id) {
@@ -35,8 +43,8 @@ var setHandlers = function(id) {
 	var childButton = masterNode.childNodes[1];
 	var childInput = masterNode.childNodes[0];
 	
-	childButton.addEventListener("onclick", buttonHandler(masterNode));
-	childInput.addEventListener("onchange", sliderHandler(masterNode));
+	childButton.addEventListener("click", buttonHandler(masterNode));
+	childInput.addEventListener("change", sliderHandler(masterNode));
 }
 
 //A simple function to create text content for a node
