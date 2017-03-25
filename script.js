@@ -1,10 +1,8 @@
 //Use to update the recursive tree when a button is clicked
 var buttonHandler = function(parentNode) {
 	var inFunct = function(){
-		var slider = parentNode.childNodes[0];
-		if(parentNode.childNodes.length === 3){
-			parentNode.removeChild(parentNode.childNodes[2]);
-		}
+		var slider = parentNode.querySelector("input");
+		parentNode.removeChild(parentNode.querySelector("div"));
 	
 		if(parentNode === document.querySelector("form").querySelector(".fib")) {
 			display(slider.value, fib, parentNode);
@@ -23,15 +21,15 @@ var buttonHandler = function(parentNode) {
 //Used to update the button readout when slider changes
 var sliderHandler = function(parentNode) {
 	var inFunct = function() {
-		var childButton = parentNode.childNodes[1];
+		var childButton = parentNode.querySelector("button");
 		if(parentNode === document.querySelector("form").querySelector(".fib")){
-			childButton.textContent = "Fib(" + parentNode.childNodes[0].value + ")";
+			childButton.textContent = "Fib(" + parentNode.querySelector("input").value + ")";
 		}
 		else if(parentNode === document.querySelector("form").querySelector(".pell")){
-			childButton.textContent = "Pell(" + parentNode.childNodes[0].value + ")";
+			childButton.textContent = "Pell(" + parentNode.querySelector("input").value + ")";
 		}
 		else {
-			childButton.textContent = "Trib(" + parentNode.childNodes[0].value + ")";
+			childButton.textContent = "Trib(" + parentNode.querySelector("input").value + ")";
 		}
 	}
 	
@@ -40,8 +38,8 @@ var sliderHandler = function(parentNode) {
 
 var setHandlers = function(id) {
 	var masterNode = document.querySelector("form").querySelector("." + id);
-	var childButton = masterNode.childNodes[1];
-	var childInput = masterNode.childNodes[0];
+	var childButton = masterNode.querySelector("button");
+	var childInput = masterNode.querySelector("input");
 	
 	childButton.addEventListener("click", buttonHandler(masterNode));
 	childInput.addEventListener("change", sliderHandler(masterNode));
@@ -167,6 +165,8 @@ var trib = function tribonacci(n) {
 	
 	return{"value" : value, "div" : div};
 }
+
+document.body.style.width = "25000px";
 
 var fibDiv = document.querySelector("form").querySelector(".fib");
 var pellDiv = document.querySelector("form").querySelector(".pell");
